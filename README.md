@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Book-Keep
+
+Book-Keep is a small family payment tracker for monthly collections from
+Felicia, Micheal, Mark, Martin, and Maurice. It starts tracking from May 2026
+and stores payment records in Supabase.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a local env file:
+
+```bash
+cp .env.example .env.local
+```
+
+Fill in:
+
+```bash
+SUPABASE_URL="https://your-project.supabase.co"
+SUPABASE_ANON_KEY="your-supabase-anon-key"
+STATUS_USERNAME="family"
+STATUS_PASSWORD="change-this-password"
+STATUS_SESSION_SECRET="replace-with-a-long-random-string"
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Supabase Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a free Supabase project.
+2. Open the SQL editor.
+3. Run the SQL in `supabase/migrations/20260608134200_create_payments.sql`.
+4. Copy the project URL and anon key into `.env.local`.
 
-## Learn More
+The app writes to Supabase from server actions only. Do not put the Supabase
+service-role key in `.env.local` or Vercel for this app.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/` records a payment for a sibling, payment date, amount, and optional remarks.
+- `/status` requires the shared username/password, then shows who has paid
+  and who has not for the selected month.
+- Each sibling can only be recorded once per month.
+- The default payment amount is RM144.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Verification
 
-## Deploy on Vercel
+Run the automated checks:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm test
+npm run lint
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Manual flow to check after Supabase is configured:
+
+1. Submit a May 2026 payment for one sibling.
+2. Open `/status?month=2026-05-01`, sign in, and confirm that sibling appears under paid.
+3. Submit the same sibling and month again and confirm the duplicate message.
+4. Submit a June 2026 payment and confirm May and June status stay separate.
+
+## Deploy
+
+Deploy to Vercel and add the same Supabase and status-login environment
+variables in the Vercel project settings.
