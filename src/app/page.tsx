@@ -23,12 +23,8 @@ export default function Home() {
           </p>
           <div className="space-y-4">
             <h1 className="text-4xl font-semibold tracking-tight text-stone-950 sm:text-6xl">
-              Track family payments without chasing a spreadsheet.
+              Track family payments.
             </h1>
-            <p className="text-lg leading-8 text-stone-600">
-              Record who has paid the monthly {DEFAULT_PAYMENT_AMOUNT} amount
-              and check the family status for each month from May 2026 onward.
-            </p>
           </div>
         </div>
 
@@ -51,10 +47,6 @@ export default function Home() {
           <h2 className="text-2xl font-semibold text-stone-950">
             Record a payment
           </h2>
-          <p className="text-stone-600">
-            Choose the sibling, month, amount, and optional note. Each person
-            can only be marked paid once per month.
-          </p>
         </div>
         <PaymentForm currentDate={currentDate} />
       </section>
