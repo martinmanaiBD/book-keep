@@ -1,7 +1,7 @@
 create table if not exists public.payments (
   id uuid primary key default gen_random_uuid(),
   payer_name text not null check (
-    payer_name in ('Felicia', 'Micheal', 'Mark', 'Martin', 'Maurice')
+    payer_name in ('Felicia', 'Michel', 'Mark', 'Martin', 'Maurice')
   ),
   payment_date date not null check (payment_date >= date '2026-05-01'),
   payment_month date not null check (
@@ -32,7 +32,7 @@ create policy "payments_insert_anon_current_months"
   for insert
   to anon
   with check (
-    payer_name in ('Felicia', 'Micheal', 'Mark', 'Martin', 'Maurice')
+    payer_name in ('Felicia', 'Michel', 'Mark', 'Martin', 'Maurice')
     and payment_date >= date '2026-05-01'
     and payment_date <= current_date
     and payment_month >= date '2026-05-01'
