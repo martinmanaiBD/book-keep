@@ -3,8 +3,20 @@ import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/supabase/database.types";
 
 export function getSupabaseConfigError(): string | null {
-  if (!process.env.SUPABASE_URL) {
+  const supabaseUrl = process.env.SUPABASE_URL;
+
+  if (!supabaseUrl) {
     return "Missing SUPABASE_URL.";
+  }
+
+  try {
+    const url = new URL(supabaseUrl);
+
+    if (url.pathname !== "/") {
+      return "SUPABASE_URL must be the project root URL, without /rest/v1 or any path.";
+    }
+  } catch {
+    return "SUPABASE_URL is not a valid URL.";
   }
 
   if (!process.env.SUPABASE_ANON_KEY) {

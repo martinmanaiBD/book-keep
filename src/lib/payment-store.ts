@@ -45,9 +45,16 @@ export async function recordPayment(
   }
 
   if (error) {
+    console.error("Failed to record payment", {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    });
+
     return {
       ok: false,
-      message: "Could not save the payment. Please try again.",
+      message: `Could not save the payment. Supabase error: ${error.code} - ${error.message}`,
     };
   }
 
@@ -77,9 +84,16 @@ export async function getPaymentsForMonth(month: string): Promise<
     .order("paid_at", { ascending: true });
 
   if (error) {
+    console.error("Failed to load payments", {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    });
+
     return {
       ok: false,
-      message: "Could not load payments for this month.",
+      message: `Could not load payments for this month. Supabase error: ${error.code} - ${error.message}`,
     };
   }
 
