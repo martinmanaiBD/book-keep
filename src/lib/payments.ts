@@ -1,6 +1,6 @@
 export const PAYERS = [
   "Felicia",
-  "Micheal",
+  "Michel",
   "Mark",
   "Martin",
   "Maurice",

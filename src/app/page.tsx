@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { PaymentForm } from "@/app/payment-form";
 import {
-  DEFAULT_PAYMENT_AMOUNT,
   getCurrentPaymentDate,
   formatMonthLabel,
   getCurrentPaymentMonth,

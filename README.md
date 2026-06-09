@@ -1,7 +1,7 @@
 # Book-Keep
 
 Book-Keep is a small family payment tracker for monthly collections from
-Felicia, Micheal, Mark, Martin, and Maurice. It starts tracking from May 2026
+Felicia, Michel, Mark, Martin, and Maurice. It starts tracking from May 2026
 and stores payment records in Supabase.
 
 ## Getting Started
